@@ -256,6 +256,28 @@ int main(int argc, char* argv[])
 
         OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects)", "VisualFXSetting");
     }
+    else if (str_actionType.find("GameConfigStoreStop") == 0)             //          禁用全屏优化（FSP）
+    {
+        DWORD value2 = 2;
+
+        DWORD value1 = 1;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_DXGIHonorFSEWindowsCompatible", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_FSEBehavior", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_HonorUserFSEBehaviorMode", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+    }
+    else if (str_actionType.find("GameConfigStoreStart") == 0)             //          全屏优化（FSP）
+    {
+        DWORD value0 = 0;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_DXGIHonorFSEWindowsCompatible", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_FSEBehavior");
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_HonorUserFSEBehaviorMode", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+    }
     else
     {
 
