@@ -320,15 +320,27 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
     }
-    else if (str_actionType.find("GameBarStart") == 0)             //          关闭多平面叠加（MPO）
+    else if (str_actionType.find("OverlayTestModeStart") == 0)             //          关闭多平面叠加（MPO）
     {
         DWORD value5 = 5;
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\Dwm)", "OverlayTestMode", REG_DWORD, reinterpret_cast<BYTE*>(&value5), 4);
     }
-    else if (str_actionType.find("GameBarStart") == 0)             //          多平面叠加（MPO）
+    else if (str_actionType.find("OverlayTestModeStop") == 0)             //          多平面叠加（MPO）
     {
         OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"("SOFTWARE\Microsoft\Windows\Dwm)", "OverlayTestMode");
+    }
+    else if (str_actionType.find("WSearchStart") == 0)             //          关闭Windows索引
+    {
+        DWORD value4 = 4;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\WSearch)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value4), 4);
+    }
+    else if (str_actionType.find("WSearchStop") == 0)             //          Windows索引
+    {
+        DWORD value2 = 2;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\WSearch)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 4);
     }
     else
     {
