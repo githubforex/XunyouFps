@@ -278,6 +278,48 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_HonorUserFSEBehaviorMode", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
     }
+    else if (str_actionType.find("GameBarStop") == 0)             //          禁用全屏优化（FSP）
+    {
+        DWORD value0 = 0;
+
+        DWORD value3 = 3;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "AutoGameModeEnabled", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "GamePanelStartupTipIndex", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 4);
+        
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "ShowStartupPanel", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+        
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "UseNexusForGameBarEnabled", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+        
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "AllowAutoGameMode", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR)", "AppCaptureEnabled", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\GameDVR)", "AllowGameDVR", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+    }
+    else if (str_actionType.find("GameBarStart") == 0)             //          全屏优化（FSP）
+    {
+        DWORD value1 = 1;
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "AutoGameModeEnabled");
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "GamePanelStartupTipIndex");
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "ShowStartupPanel");
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "UseNexusForGameBarEnabled");
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\GameBar)", "AllowAutoGameMode");
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"("SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR)", "AppCaptureEnabled");
+
+        OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"("SOFTWARE\Policies\Microsoft\Windows\GameDVR)", "AllowGameDVR");
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+    }
     else
     {
 
