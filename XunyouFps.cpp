@@ -278,7 +278,7 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(System\GameConfigStore)", "GameDVR_HonorUserFSEBehaviorMode", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
     }
-    else if (str_actionType.find("GameBarStop") == 0)             //          禁用全屏优化（FSP）
+    else if (str_actionType.find("GameBarStop") == 0)             //          关闭GameBar
     {
         DWORD value0 = 0;
 
@@ -300,7 +300,7 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
     }
-    else if (str_actionType.find("GameBarStart") == 0)             //          全屏优化（FSP）
+    else if (str_actionType.find("GameBarStart") == 0)             //          开启GameBar
     {
         DWORD value1 = 1;
 
@@ -319,6 +319,16 @@ int main(int argc, char* argv[])
         OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"("SOFTWARE\Policies\Microsoft\Windows\GameDVR)", "AllowGameDVR");
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+    }
+    else if (str_actionType.find("GameBarStart") == 0)             //          关闭多平面叠加（MPO）
+    {
+        DWORD value5 = 5;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\Dwm)", "OverlayTestMode", REG_DWORD, reinterpret_cast<BYTE*>(&value5), 4);
+    }
+    else if (str_actionType.find("GameBarStart") == 0)             //          多平面叠加（MPO）
+    {
+        OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"("SOFTWARE\Microsoft\Windows\Dwm)", "OverlayTestMode");
     }
     else
     {
