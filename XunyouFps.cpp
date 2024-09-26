@@ -118,13 +118,35 @@ int main(int argc, char* argv[])
     }
     else if (str_actionType.find("DriverSearchingStart") == 0)
     {
-        DWORD value3 = 3;
-
         DWORD value1 = 1;
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching)", "SearchOrderConfig", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
 
         OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate)", "ExcludeWUDriversInQualityUpdate");
+    }
+    else if (str_actionType.find("BackgroundAccessApplicationsStart") == 0)              //          禁用UWP程序后台
+    {
+        DWORD value1 = 1;
+
+        DWORD value0 = 0;
+
+        DWORD value4 = 4;
+        //      Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications)", "GlobalUserDisabled", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Software\Microsoft\Windows\CurrentVersion\Search)", "BackgroundAppGlobalToggle", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\embeddedmode)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value4), 4);
+    }
+    else if (str_actionType.find("BackgroundAccessApplicationsStop") == 0)             //          取消禁用UWP程序后台          
+    {
+        DWORD value3 = 3;
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications)", "GlobalUserDisabled");
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(Software\Microsoft\Windows\CurrentVersion\Search)", "BackgroundAppGlobalToggle");
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\embeddedmode)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 4);
     }
     else
     {
