@@ -168,6 +168,18 @@ int main(int argc, char* argv[])
     {
         OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\WindowsStore)", "AutoDownload");
     }
+    else if (str_actionType.find("PersonalizeStop") == 0)             //          禁用Windows透明度
+    {
+        DWORD value0 = 0;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize)", "EnableTransparency", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+        }
+    else if (str_actionType.find("PersonalizeStart") == 0)             //          使用Windows透明度
+    {
+        DWORD value1 = 1;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize)", "EnableTransparency", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+    }
     else
     {
 
