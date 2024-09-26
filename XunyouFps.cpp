@@ -158,6 +158,16 @@ int main(int argc, char* argv[])
     {
         OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"(SYSTEM\Maps)", "AutoUpdateEnabled");
     }
+    else if (str_actionType.find("WindowsStoreStop") == 0)             //          禁用自动更新商店
+    {
+        DWORD value2 = 2;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\WindowsStore)", "AutoDownload", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 4);
+    }
+    else if (str_actionType.find("WindowsStoreStart") == 0)             //          自动更新商店
+    {
+        OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\WindowsStore)", "AutoDownload");
+    }
     else
     {
 
