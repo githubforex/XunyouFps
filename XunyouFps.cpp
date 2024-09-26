@@ -180,6 +180,82 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize)", "EnableTransparency", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
     }
+    else if (str_actionType.find("VisualEffectsStop") == 0)             //          Windows视觉效果
+    {
+        DWORD value1 = 1;
+
+        DWORD value0 = 0;
+
+        DWORD value2 = 0x2;
+
+        BYTE bData[0x24] = { 0x24, 0x00, 0x00, 0x00,
+                            0x3E, 0xA8, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x01, 0x00, 0x00, 0x00,
+                            0x13, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x73, 0x00, 0x00, 0x00 };
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "TaskbarAnimations", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "IconsOnly", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "ListviewShadow", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "ListviewAlphaSelect", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\Desktop\WindowMetrics)", "MinAnimate", REG_SZ, (LPBYTE)"0", 1);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\Desktop)", "DragFullWindows", REG_SZ, (LPBYTE)"0", 1);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\DWM)", "EnableAeroPeek", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\Desktop)", "FontSmoothing", REG_SZ, (LPBYTE)"0", 1);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer)", "ShellState", REG_BINARY, bData, 0x24);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects)", "VisualFXSetting", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 4);
+    }
+    else if (str_actionType.find("VisualEffectsStart") == 0)             //         Windows视觉效果
+    {
+        DWORD value1 = 1;
+
+        DWORD value0 = 0;
+
+        DWORD value24 = 0x24;
+
+        BYTE bData[0x24] = { 0x24, 0x00, 0x00, 0x00,
+                            0x37, 0x28, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x01, 0x00, 0x00, 0x00,
+                            0x13, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00,
+                            0x6A, 0x00, 0x00, 0x00 };
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "TaskbarAnimations", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "IconsOnly", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "ListviewShadow", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced)", "ListviewAlphaSelect", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\Desktop\WindowMetrics)", "MinAnimate", REG_SZ, (LPBYTE)"1", 1);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\Desktop)", "DragFullWindows", REG_SZ, (LPBYTE)"1", 1);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\DWM)", "EnableAeroPeek", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 4);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\Desktop)", "FontSmoothing", REG_SZ, (LPBYTE)"1", 1);
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer)", "ShellState", REG_BINARY, bData, 0x24);
+
+        OptimizationSecurityAndMaintenance(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects)", "VisualFXSetting");
+    }
     else
     {
 
