@@ -148,6 +148,16 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\embeddedmode)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 4);
     }
+    else if (str_actionType.find("MapStop") == 0)             //          关闭自动更新地图
+    {
+        DWORD value0 = 0;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\Maps)", "AutoUpdateEnabled", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 4);
+    }
+    else if (str_actionType.find("MapStart") == 0)             //          开启自动更新地图
+    {
+        OptimizationSecurityAndMaintenance(HKEY_LOCAL_MACHINE, R"(SYSTEM\Maps)", "AutoUpdateEnabled");
+    }
     else
     {
 
