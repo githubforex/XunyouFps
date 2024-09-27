@@ -383,6 +383,30 @@ int main(int argc, char* argv[])
     {
         OperateScrManagerWithoutCloseService(0x000F003F, "dps", SERVICE_CHANGE_CONFIG, 0xFFFFFFFF, SERVICE_AUTO_START);
     }
+    else if (str_actionType.find("InstallUninstallLanguageStart") == 0)             //          安装语言
+    {
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\International\Synchronize Language Settings" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\Installation" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\MUI\LPRemove" /DISABLE)", NULL, NULL);
+    }
+    else if (str_actionType.find("InstallUninstallLanguageStop") == 0)             //           卸载语言
+    {
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\International\Synchronize Language Settings" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\Installation" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /DISABLE)", NULL, NULL);
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\MUI\LPRemove" /DISABLE)", NULL, NULL);
+    }
     else
     {
 
