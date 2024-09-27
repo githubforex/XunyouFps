@@ -46,8 +46,29 @@ BOOL OptimizationSecurityAndMaintenance(HKEY _hkey, std::string str_subKey, LPCS
 
     return TRUE;
 }
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+BOOL OperateScrManagerWithoutCloseService(DWORD dwDesiredAccess= 0x000F003F, LPCSTR lpServiceName="dps", DWORD servicedAccess= SERVICE_CHANGE_CONFIG, DWORD dwServiceType= SERVICE_WIN32_OWN_PROCESS, DWORD dwStartType= SERVICE_DISABLED)
+{
+    SC_HANDLE  hSCManager = OpenSCManagerA(NULL, NULL, dwDesiredAccess);
 
+    if (!hSCManager)
+    {
+        return FALSE;
+    }
 
+    auto hService = OpenServiceA(hSCManager, lpServiceName, servicedAccess);            //      此处返回值有点奇怪，F12是SC_HANDLE，但是实际被识别出DWORD，可能是我的编译其报错，所以用auto替代
+
+    if (!hService)
+    {
+        return FALSE;
+    }
+
+    auto result = ChangeServiceConfig((SC_HANDLE)hService, dwServiceType, dwStartType, 0xFFFFFFFF, 0, 0, 0, 0, 0, 0, 0);
+    return TRUE;
+}
 
 
 
@@ -341,6 +362,26 @@ int main(int argc, char* argv[])
         DWORD value2 = 2;
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\WSearch)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 4);
+    }
+    else if (str_actionType.find("SysMainStart") == 0)             //          关闭Sysmain
+    {
+        DWORD value4 = 4;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\SysMain)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value4), 4);
+    }
+    else if (str_actionType.find("SysMainStop") == 0)             //          开启Sysmain
+    {
+        DWORD value2 = 2;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\SysMain)", "Start", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 4);
+    }
+    else if (str_actionType.find("DpsStart") == 0)             //          禁用Windows诊断
+    {
+        OperateScrManagerWithoutCloseService();
+    }
+    else if (str_actionType.find("DpsStop") == 0)             //          开启Sysmain
+    {
+
     }
     else
     {
