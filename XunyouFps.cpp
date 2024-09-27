@@ -50,7 +50,7 @@ BOOL OptimizationSecurityAndMaintenance(HKEY _hkey, std::string str_subKey, LPCS
 /// 
 /// </summary>
 /// <returns></returns>
-BOOL OperateScrManagerWithoutCloseService(DWORD dwDesiredAccess= 0x000F003F, LPCSTR lpServiceName="dps", DWORD servicedAccess= SERVICE_CHANGE_CONFIG, DWORD dwServiceType= SERVICE_WIN32_OWN_PROCESS, DWORD dwStartType= SERVICE_DISABLED)
+BOOL OperateScrManagerWithoutCloseService(DWORD dwDesiredAccess= 0x000F003F, LPCSTR lpServiceName="dps", DWORD servicedAccess= SERVICE_CHANGE_CONFIG, DWORD dwServiceType= 0xFFFFFFFF, DWORD dwStartType= SERVICE_DISABLED)
 {
     SC_HANDLE  hSCManager = OpenSCManagerA(NULL, NULL, dwDesiredAccess);
 
@@ -379,9 +379,9 @@ int main(int argc, char* argv[])
     {
         OperateScrManagerWithoutCloseService();
     }
-    else if (str_actionType.find("DpsStop") == 0)             //          开启Sysmain
+    else if (str_actionType.find("DpsStop") == 0)             //          允许Windows诊断
     {
-
+        OperateScrManagerWithoutCloseService(0x000F003F, "dps", SERVICE_CHANGE_CONFIG, 0xFFFFFFFF, SERVICE_AUTO_START);
     }
     else
     {
