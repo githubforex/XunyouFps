@@ -566,6 +566,50 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverride", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
+    else if (str_actionType.find("TsxStart") == 0)             //          启用TSX
+    {
+        DWORD value0 = 0;           //      0表示开启
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\kernel)", "DisableTsx", REG_SZ, (LPBYTE)"0");
+    }
+    else if (str_actionType.find("TsxStop") == 0)             //           禁用TSX
+    {
+        DWORD value1 = 1;           //      1表示关闭  参考链接：http://www.lotpc.com/yjzs/8687.html
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\kernel)", "DisableTsx", REG_SZ, (LPBYTE)"1");
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
         
