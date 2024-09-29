@@ -554,6 +554,18 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "ryTextSelected", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
+    else if (str_actionType.find("DownfallStart") == 0)             //          Downfall
+    {
+        DWORD value3 = 0x3;     //启用所有可能的内存管理特性。
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverride", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 0x4);
+    }
+    else if (str_actionType.find("DownfallStop") == 0)             //           Downfall
+    {
+        DWORD value0 = 0x0;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverride", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+    }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
         
