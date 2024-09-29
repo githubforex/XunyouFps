@@ -516,21 +516,47 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "SystemResponsiveness", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          Win32prioritySeparation
+    else if (str_actionType.find("Win32PrioritySeparationStart") == 0)             //          Win32prioritySeparation
     {
         DWORD value0 = 0x0;
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\PriorityControl)", "Win32PrioritySeparation", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           Win32prioritySeparation
+    else if (str_actionType.find("Win32PrioritySeparationStop") == 0)             //           Win32prioritySeparation
     {
         DWORD value2 = 0x2;
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\PriorityControl)", "Win32PrioritySeparation", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 0x4);
     }
+    else if (str_actionType.find("FeatureSettingsOverrideStart") == 0)             //          关闭spectre、meltdown
+    {
+        DWORD value3 = 0x3;
+
+        DWORD value1 = 0x1;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverride", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverrideMask", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "ryTextSelected", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+    }
+    else if (str_actionType.find("FeatureSettingsOverrideStop") == 0)             //           关闭spectre、meltdown
+    {
+        DWORD value2 = 0x02000000;
+
+        DWORD value3 = 0x3;
+
+        DWORD value1 = 0x1;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverride", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "FeatureSettingsOverrideMask", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management)", "ryTextSelected", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+    }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
-
+        
     }
     else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
     {
