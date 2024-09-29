@@ -492,6 +492,18 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\AppCompat)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          NetworkThrottlinglndex
+    {
+        DWORD   valueA = 0xA;                           //      最大限制，，1-10代表限制的程序不同
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "NetworkThrottlingIndex", REG_DWORD, reinterpret_cast<BYTE*>(&valueA), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           NetworkThrottlinglndex
+    {
+        DWORD   value_FFFFFFFF = 0xFFFFFFFF;             //      网络不受限制
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "NetworkThrottlingIndex", REG_DWORD, reinterpret_cast<BYTE*>(&value_FFFFFFFF), 0x4);
+    }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
 
