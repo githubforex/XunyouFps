@@ -468,6 +468,26 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用网站访问语言列表
+    {
+        DWORD   value0 = 0x0;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\International\User Profile)", "HttpAcceptLanguageOptOut", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用网站访问语言列表
+    {
+        DWORD   value1 = 0x1;
+
+        OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\International\User Profile)", "HttpAcceptLanguageOptOut", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用WiFi感知
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用WiFi感知
+    {
+
+    }
     else
     {
 
