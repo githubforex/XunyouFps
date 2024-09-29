@@ -506,7 +506,7 @@ int main(int argc, char* argv[])
     }
     else if (str_actionType.find("SystemResponsivenessStart") == 0)             //          SytemResponsiveness
     {
-        DWORD   value20 = 20;
+        DWORD   value20 = 20;//     此处是十进制
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "SystemResponsiveness", REG_DWORD, reinterpret_cast<BYTE*>(&value20), 0x4);
     }
@@ -515,6 +515,18 @@ int main(int argc, char* argv[])
         DWORD   value0 = 0x0;           //      0-20,,值越大，系统对多媒体任务的响应性越好，同时对其他应用的响应性影响越小。
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "SystemResponsiveness", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          Win32prioritySeparation
+    {
+        DWORD value0 = 0x0;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\PriorityControl)", "Win32PrioritySeparation", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           Win32prioritySeparation
+    {
+        DWORD value2 = 0x2;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\PriorityControl)", "Win32PrioritySeparation", REG_DWORD, reinterpret_cast<BYTE*>(&value2), 0x4);
     }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
