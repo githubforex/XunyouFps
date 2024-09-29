@@ -492,17 +492,29 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\AppCompat)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          NetworkThrottlinglndex
+    else if (str_actionType.find("NetworkThrottlingIndexStart") == 0)             //          NetworkThrottlinglndex
     {
         DWORD   valueA = 0xA;                           //      最大限制，，1-10代表限制的程序不同
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "NetworkThrottlingIndex", REG_DWORD, reinterpret_cast<BYTE*>(&valueA), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           NetworkThrottlinglndex
+    else if (str_actionType.find("NetworkThrottlingIndexStop") == 0)             //           NetworkThrottlinglndex
     {
         DWORD   value_FFFFFFFF = 0xFFFFFFFF;             //      网络不受限制
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "NetworkThrottlingIndex", REG_DWORD, reinterpret_cast<BYTE*>(&value_FFFFFFFF), 0x4);
+    }
+    else if (str_actionType.find("SystemResponsivenessStart") == 0)             //          SytemResponsiveness
+    {
+        DWORD   value20 = 20;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "SystemResponsiveness", REG_DWORD, reinterpret_cast<BYTE*>(&value20), 0x4);
+    }
+    else if (str_actionType.find("SystemResponsivenesspStop") == 0)             //           SytemResponsiveness
+    {
+        DWORD   value0 = 0x0;           //      0-20,,值越大，系统对多媒体任务的响应性越好，同时对其他应用的响应性影响越小。
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile)", "SystemResponsiveness", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
