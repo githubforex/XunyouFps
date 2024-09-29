@@ -436,19 +436,19 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DeviceCensus.exe)", "Debugger", REG_SZ, (LPBYTE)str_value.c_str(), 0x1E);        
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          退出Windows隐私同意
+    else if (str_actionType.find("AcceptedPrivacyPolicyStart") == 0)             //          退出Windows隐私同意
     {
         DWORD   value0 = 0x0;
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Personalization\Settings)", "AcceptedPrivacyPolicy", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           退出Windows隐私同意
+    else if (str_actionType.find("AcceptedPrivacyPolicyStop") == 0)             //           退出Windows隐私同意
     {
         DWORD   value1 = 0x1;
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Personalization\Settings)", "AcceptedPrivacyPolicy", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用WiFi感知
+    else if (str_actionType.find("AllowWiFiHotSpotReportingStart") == 0)             //          禁用WiFi感知
     {
         DWORD   value0 = 0x0;
 
@@ -458,7 +458,7 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用WiFi感知
+    else if (str_actionType.find("AllowWiFiHotSpotReportingStop") == 0)             //           禁用WiFi感知
     {
         DWORD   value1 = 0x1;
 
@@ -468,23 +468,35 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用网站访问语言列表
+    else if (str_actionType.find("HttpAcceptLanguageOptOutStart") == 0)             //          禁用网站访问语言列表
     {
         DWORD   value0 = 0x0;
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\International\User Profile)", "HttpAcceptLanguageOptOut", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用网站访问语言列表
+    else if (str_actionType.find("HttpAcceptLanguageOptOutStop") == 0)             //           禁用网站访问语言列表
     {
         DWORD   value1 = 0x1;
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(Control Panel\International\User Profile)", "HttpAcceptLanguageOptOut", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用WiFi感知
+    else if (str_actionType.find("AutoConnectAllowedOEMStart") == 0)             //          禁用步骤记录器
+    {
+        DWORD   value0 = 0x0;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\AppCompat)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+    }
+    else if (str_actionType.find("AutoConnectAllowedOEMStop") == 0)             //           禁用步骤记录器
+    {
+        DWORD   value1 = 0x1;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\AppCompat)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
 
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用WiFi感知
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
     {
 
     }
