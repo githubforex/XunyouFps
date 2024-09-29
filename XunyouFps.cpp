@@ -448,6 +448,26 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Personalization\Settings)", "AcceptedPrivacyPolicy", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用WiFi感知
+    {
+        DWORD   value0 = 0x0;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用WiFi感知
+    {
+        DWORD   value1 = 0x1;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots)", "value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config)", "AutoConnectAllowedOEM", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
+    }
     else
     {
 
