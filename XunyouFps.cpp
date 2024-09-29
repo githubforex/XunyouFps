@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 
 #include <Windows.h>
-
+#include <objbase.h>
 
 
 
@@ -69,8 +69,21 @@ BOOL OperateScrManagerWithoutCloseService(DWORD dwDesiredAccess= 0x000F003F, LPC
     auto result = ChangeServiceConfig((SC_HANDLE)hService, dwServiceType, dwStartType, 0xFFFFFFFF, 0, 0, 0, 0, 0, 0, 0);
     return TRUE;
 }
+/// <summary>
+/// 
+/// </summary>
+/// <param name="dwCoInit"></param>
+/// <returns></returns>
+BOOL OperateCoApi(DWORD dwCoInit = 0x6)
+{
+    HRESULT hr;
+    
+    IUnknown* pUnknown = nullptr;
 
+    CoInitializeEx(NULL, dwCoInit);
 
+    //CoCreateInstance(CLSID_kuan, NULL, 0x1, IID_IUnknown, (void**)&pUnknown)
+}
 
 
 
@@ -406,6 +419,22 @@ int main(int argc, char* argv[])
         ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /DISABLE)", NULL, NULL);
 
         ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\MUI\LPRemove" /DISABLE)", NULL, NULL);
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          网络摄像头遥测
+    {
+        std::string str_value = R"(%windir%\System32\taskkill.exe)";
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\Device Information\Device" /ENABLE)", NULL, NULL);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DeviceCensus.exe)", "Debugger", REG_SZ, (LPBYTE)str_value.c_str(), 0x1E);
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           网络摄像头遥测
+    {
+        std::string str_value = R"(%windir%\System32\taskkill.exe)";
+
+        ShellExecute(NULL, "open", "cmd.exe", R"(/c schtasks /Change /TN "\Microsoft\Windows\Device Information\Device" /DISABLE)", NULL, NULL);
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DeviceCensus.exe)", "Debugger", REG_SZ, (LPBYTE)str_value.c_str(), 0x1E);        
     }
     else
     {
