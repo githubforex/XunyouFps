@@ -578,13 +578,22 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\kernel)", "DisableTsx", REG_SZ, (LPBYTE)"1");
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          服务分组（svchosts.exe）
     {
+        DWORD value0 = 0;             
+        //      0表示禁用内存分割，，如果传入512表示以512KB分割
+        //      参考链接：https://steamcommunity.com/sharedfiles/filedetails/?l=turkish&id=2271138699   需要翻墙
+        //      Tap Windows + R enter regedit > navigate to HKEY_LOCAL_MACHINE > SYSTEM > CurrentControlSet > Control > On the right hand side, find SvcHostSplitThresholdInKB 
+        //      and double click on it. Change to your RAM size in KB. Default value was 380000
+        //      (For example, if you have 8G. 8x1024x1024 = enter 8388608KB. 16G, 16x1024x1024 = enter 16777216KB) then restart your computer.
 
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control)", "SvcHostSplitThresholdInKB", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           服务分组（svchosts.exe）
     {
+        DWORD value800000 = 0x800000;
 
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control)", "SvcHostSplitThresholdInKB", REG_DWORD, reinterpret_cast<BYTE*>(&value800000), 0x4);
     }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
