@@ -578,7 +578,7 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control\Session Manager\kernel)", "DisableTsx", REG_SZ, (LPBYTE)"1");
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          服务分组（svchosts.exe）
+    else if (str_actionType.find("SvcHostSplitThresholdInKBStart") == 0)             //          服务分组（svchosts.exe）
     {
         DWORD value0 = 0;             
         //      0表示禁用内存分割，，如果传入512表示以512KB分割
@@ -589,19 +589,37 @@ int main(int argc, char* argv[])
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control)", "SvcHostSplitThresholdInKB", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           服务分组（svchosts.exe）
+    else if (str_actionType.find("SvcHostSplitThresholdInKBStop") == 0)             //           服务分组（svchosts.exe）
     {
         DWORD value800000 = 0x800000;
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Control)", "SvcHostSplitThresholdInKB", REG_DWORD, reinterpret_cast<BYTE*>(&value800000), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    else if (str_actionType.find("MiscPolicyInfoStart") == 0)             //          更新保存留存储
     {
+        //MiscPolicyInfo 主要用于控制 Windows 在资源管理方面的行为，影响系统的性能和资源分配。具体使用时，建议根据实际需求和测试结果调整此值，并在修改前备份注册表。
+        //0：
 
+        //表示未启用任何特殊资源管理策略，系统使用默认设置。
+        //1：
+
+        //表示启用某种特定的资源管理策略，可能影响资源分配的优先级。
+        //2：
+
+        //表示启用不同的资源管理策略，具体效果依赖于其他配置。
+        //3：
+
+        //表示启用所有可能的资源管理特性，通常用于高级配置和优化。
+
+        DWORD value0 = 0x0;
+
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager)", "MiscPolicyInfo", REG_DWORD, reinterpret_cast<BYTE*>(&value0), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    else if (str_actionType.find("MiscPolicyInfoStop") == 0)             //           更新保存留存储
     {
+        DWORD value3 = 0x3;
 
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager)", "MiscPolicyInfo", REG_DWORD, reinterpret_cast<BYTE*>(&value3), 0x4);
     }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
