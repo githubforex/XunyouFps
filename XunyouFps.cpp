@@ -627,9 +627,9 @@ int main(int argc, char* argv[])
 
         //DWORD   value4 = 0x4;               
 
-        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "WiFi", REG_DWORD, (LPBYTE)"Deny", 0x5);
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "WiFi", REG_SZ, (LPBYTE)"Deny", 0x5);
 
-        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "Bluetooth", REG_DWORD, (LPBYTE)"Deny", 0x5);
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "Bluetooth", REG_SZ, (LPBYTE)"Deny", 0x5);
 
         //OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{A8804298-2D5F-42E3-9531-9C8C39EB29CE})", "Value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
 
@@ -641,21 +641,21 @@ int main(int argc, char* argv[])
 
         //DWORD   value4 = 0x4;
 
-        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "WiFi", REG_DWORD, (LPBYTE)"Allow", 0x6);
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "WiFi", REG_SZ, (LPBYTE)"Allow", 0x6);
 
-        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "Bluetooth", REG_DWORD, (LPBYTE)"Allow", 0x6);
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios)", "Bluetooth", REG_SZ, (LPBYTE)"Allow", 0x6);
 
         //OptimizationMouseSpeed(HKEY_CURRENT_USER, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{A8804298-2D5F-42E3-9531-9C8C39EB29CE})", "Value", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
 
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Policies\Microsoft\Windows\AppPrivacy)", "LetAppsAccessRadios", REG_DWORD, reinterpret_cast<BYTE*>(&value1), 0x4);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    else if (str_actionType.find("documentsLibraryStart") == 0)             //          拒绝访问文档文件夹
     {
-
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary)", "Value", REG_SZ, (LPBYTE)"Deny", 0x5);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    else if (str_actionType.find("documentsLibraryStop") == 0)             //           允许访问文档文件夹
     {
-
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary)", "Value", REG_SZ, (LPBYTE)"Allow", 0x6);
     }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
