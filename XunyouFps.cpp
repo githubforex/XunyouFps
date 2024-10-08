@@ -657,6 +657,38 @@ int main(int argc, char* argv[])
     {
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary)", "Value", REG_SZ, (LPBYTE)"Allow", 0x6);
     }
+    else if (str_actionType.find("picturesLibraryStart") == 0)             //          拒绝访问图片文件夹
+    {
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary)", "Value", REG_SZ, (LPBYTE)"Deny", 0x5);
+    }
+    else if (str_actionType.find("picturesLibraryStop") == 0)             //           允许访问图片文件夹
+    {
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary)", "Value", REG_SZ, (LPBYTE)"Allow", 0x5);
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    {
+
+    }
+    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    {
+
+    }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
         
