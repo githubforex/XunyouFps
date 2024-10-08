@@ -673,13 +673,13 @@ int main(int argc, char* argv[])
     {
         OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\videosLibrary)", "Value", REG_SZ, (LPBYTE)"Allow", 0x6);
     }
-    else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
+    else if (str_actionType.find("broadFileSystemAccessStart") == 0)             //          拒绝访问其他文件系统
     {
-
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess)", "Value", REG_SZ, (LPBYTE)"Deny", 0x5);
     }
-    else if (str_actionType.find("DeviceCensusStop") == 0)             //           禁用
+    else if (str_actionType.find("broadFileSystemAccessStop") == 0)             //           拒绝访问其他文件系统
     {
-
+        OptimizationMouseSpeed(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess)", "Value", REG_SZ, (LPBYTE)"Allow", 0x6);
     }
     else if (str_actionType.find("DeviceCensusStart") == 0)             //          禁用
     {
